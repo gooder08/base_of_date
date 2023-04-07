@@ -59,7 +59,12 @@ WHERE length = (SELECT min(length) FROM track);
 SELECT name_album, count(*) FROM album a 
 JOIN track t ON a.id = t.album_id 
 GROUP BY name_album
-HAVING  count(*) = (SELECT min(count) FROM (SELECT name_album, count(*) FROM album a1 JOIN track t1 ON a1.id = t1.album_id GROUP BY name_album) AS foo);
+HAVING  count(*) = (SELECT count(*) FROM album a1 
+	JOIN track t1 ON a1.id = t1.album_id 
+	GROUP BY a1.id 
+	ORDER BY 1
+	LIMIT 1);
+--(SELECT min(count) FROM (SELECT name_album, count(*) FROM album a1 JOIN track t1 ON a1.id = t1.album_id GROUP BY name_album) AS foo);
 
 
 
