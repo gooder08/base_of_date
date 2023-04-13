@@ -12,7 +12,7 @@ def create_db(conn):
         email VARCHAR(60) NOT NULL
         );""")
     cur.execute("""CREATE TABLE IF NOT EXISTS mobilephones(
-        id_mp INTEGER REFERENCES people(id) ON DELETE CASCADE ON UPDATE CASCADE,
+        id_mp SERIAL REFERENCES people(id) ON DELETE CASCADE ON UPDATE CASCADE,
         mobile VARCHAR(60) 
         );""")
     conn.commit()
@@ -21,7 +21,7 @@ def create_db(conn):
 # Функция, позволяющая добавить нового клиента.    
 def add_client(conn, first_name, last_name, email, phones):
     cur.execute(""" INSERT INTO people(name, surname, email) VALUES (%s, %s, %s)""", (first_name.upper(), last_name.upper(), email.upper(), )) 
-    cur.execute(""" INSERT INTO mobilephones(id_mp, mobile) VALUES (%s, %s)""", ('1', phones, ))     
+    cur.execute(""" INSERT INTO mobilephones(mobile) VALUES (%s)""", (phones, ))     
     conn.commit()
     print('Данные успешно добавлены в базу')
         
