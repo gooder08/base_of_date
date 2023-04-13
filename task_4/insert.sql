@@ -5,7 +5,7 @@ INSERT INTO track (name_track, length, album_id) VALUES ('Нежность', '00
 INSERT INTO collection (name_collection, release_date_collection) VALUES ('Все подряд', '05.05.2005'), ('Лучшие', '07.05.2005'), ('Лучшие музыканты', '10.06.2010'), ('Лучшие песняры', '15.07.2003'), ('Любимые', '02.02.2004'), ('Пей и пой', '01.01.2006'), ('Любимые музыканты', '30.11.2011'), ('Играй гармонь', '14.12.2012');
 INSERT INTO genre_executor (genre_id, executor_id) VALUES (1, 1), (2, 2), (3, 3), (4, 4), (4, 5), (5, 6), (5, 7), (5, 8);
 INSERT INTO executor_album  (executor_id, album_id) VALUES (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8);
-INSERT INTO collection_track  (track_id, collection_id) VALUES (1, 1), (2, 1), (3, 1), (4, 2), (5, 2), (6, 3), (7, 3), (8, 4), (9, 4), (10, 5), (11, 5), (12, 6), (13, 6), (14, 6), (15, 7), (16, 7), (17, 8);
+INSET INTO collection_track  (track_id, collection_id) VALUES (1, 1), (2, 1), (3, 1), (4, 2), (5, 2), (6, 3), (7, 3), (8, 4), (9, 4), (10, 5), (11, 5), (12, 6), (13, 6), (14, 6), (15, 7), (16, 7), (17, 8);
 
 
 
