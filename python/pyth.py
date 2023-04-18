@@ -63,18 +63,43 @@ def delete_phone(conn, client_id):
 
 # Функция, позволяющая удалить существующего клиента.
 def delete_client(conn, client_id):
+    cur.execute("""DELETE FROM mobilephones WHERE id_mp = %s """, (client_id, ))
     cur.execute("""DELETE FROM people WHERE id = %s """, (client_id, )) 
-    cur.execute("""DELETE FROM mobilephones WHERE id_mp = %s """, (client_id, )) 
     conn.commit()
     print(f'Клиент с id {client_id} успешно удален')
                     
 
 # Функция, позволяющая найти клиента по его данным: имени, фамилии, email или телефону.
 def find_client(conn, first_name, last_name, email, phones):
-    cur.execute("""SELECT id, name, surname, email, mobile FROM people p JOIN mobilephones m ON p.id=m.id_mp WHERE email = %s""", (email.upper(), ))
-    a = cur.fetchall()
-    d = pd.DataFrame(a, columns=['id', 'name', 'surname', 'email', 'mobile'])
-    print(f"Клиент с почтой {email} найден:\n{d}")
+    if email == None and phones == None:
+        cur.execute("""SELECT id, name, surname, email, mobile FROM people p JOIN mobilephones m ON p.id=m.id_mp WHERE name=%s and surname=%s""", (first_name, last_name, ))
+        a = cur.fetchall()
+        d = pd.DataFrame(a, columns=['id', 'name', 'surname', 'email', 'mobile'])
+        print(f"Клиент найден:\n{d}")
+    if first_name == None and email == None and phones == None:
+        cur.execute("""SELECT id, name, surname, email, mobile FROM people p JOIN mobilephones m ON p.id=m.id_mp WHERE surname=%s""", (last_name, ))
+        a = cur.fetchall()
+        d = pd.DataFrame(a, columns=['id', 'name', 'surname', 'email', 'mobile'])
+        print(f"Клиент найден:\n{d}")
+    if last_name == None and email == None and phones == None:
+        cur.execute("""SELECT id, name, surname, email, mobile FROM people p JOIN mobilephones m ON p.id=m.id_mp WHERE name=%s""", (first_name, ))
+        a = cur.fetchall()
+        d = pd.DataFrame(a, columns=['id', 'name', 'surname', 'email', 'mobile'])
+        print(f"Клиент найден:\n{d}")
+    if last_name == None and  first_name == None and phones == None:
+        cur.execute("""SELECT id, name, surname, email, mobile FROM people p JOIN mobilephones m ON p.id=m.id_mp WHERE name=%s""", (email, ))
+        a = cur.fetchall()
+        d = pd.DataFrame(a, columns=['id', 'name', 'surname', 'email', 'mobile'])
+        print(f"Клиент найден:\n{d}")
+    if last_name == None and first_name == None and email == None:
+        cur.execute("""SELECT id, name, surname, email, mobile FROM people p JOIN mobilephones m ON p.id=m.id_mp WHERE name=%s""", (phones, ))
+        a = cur.fetchall()
+        d = pd.DataFrame(a, columns=['id', 'name', 'surname', 'email', 'mobile'])
+        print(f"Клиент найден:\n{d}")
+
+
+
+    
     
     
 if __name__ == "__main__":
@@ -103,9 +128,9 @@ if __name__ == "__main__":
                 if com == '4':
                     delete_phone(conn, client_id='1')
                 if com == '5':
-                    delete_client(conn, client_id='1')
+                    delete_client(conn, client_id='3')
                 if com == '6':
-                    find_client(conn, first_name=None, last_name=None, email='sobaka@mail.ru', phones=None)
+                    find_client(conn, first_name=None, last_name=None, email=None, phones=None)
                 if com == '7':
                     show_db(conn)                      
                 if com =='q':
